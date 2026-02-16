@@ -106,9 +106,8 @@ export function BookmarkProvider({ children }: { children: React.ReactNode }) {
             throw error;
         }
 
-        if (data) {
-            setBookmarks((prev) => [data, ...prev]);
-        }
+        // We rely on the Realtime subscription (INSERT event) to update the UI
+        // This prevents duplicate entries caused by manual + realtime both firing.
     };
 
     const deleteBookmark = async (id: string) => {

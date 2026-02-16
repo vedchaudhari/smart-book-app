@@ -62,14 +62,14 @@ export default function HeroAuthButtons() {
         <div className="flex gap-4 justify-center">
             <button
                 onClick={handleLogin}
-                className="flex items-center gap-2 px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                className="flex items-center gap-2 px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 cursor-pointer"
             >
                 Get Started
                 <ArrowRight className="w-5 h-5" />
             </button>
             <button
                 onClick={handleLogin}
-                className="px-8 py-3 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 text-gray-900 dark:text-white rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-zinc-700 transition-all"
+                className="px-8 py-3 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 text-gray-900 dark:text-white rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-zinc-700 transition-all cursor-pointer"
             >
                 Login
             </button>

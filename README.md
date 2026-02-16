@@ -8,8 +8,8 @@ This project was developed as part of a fullstack engineering screening task.
 
 # Live Demo
 
-Live URL: https://smartmarks.vercel.app/
-GitHub Repo: https://github.com/your-username/smart-book-app
+Live URL: https://syncmarks.vercel.app/
+GitHub Repo: https://github.com/vedchaudhari/smart-bookmark-app
 
 ---
 

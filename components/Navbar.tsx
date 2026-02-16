@@ -13,7 +13,7 @@ export default function Navbar() {
                                 <Bookmark className="w-5 h-5" />
                             </div>
                             <span className="font-bold text-xl tracking-tight text-gray-900 dark:text-white">
-                                SmartMarks
+                                syncmarks
                             </span>
                         </Link>
                     </div>

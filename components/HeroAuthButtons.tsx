@@ -26,6 +26,15 @@ export default function HeroAuthButtons() {
         return () => subscription.unsubscribe();
     }, []);
 
+    const handleLogin = async () => {
+        await supabase.auth.signInWithOAuth({
+            provider: "google",
+            options: {
+                redirectTo: `${location.origin}/auth/callback`,
+            },
+        });
+    };
+
     if (loading) {
         return (
             <div className="flex gap-4 justify-center">
@@ -51,19 +60,19 @@ export default function HeroAuthButtons() {
 
     return (
         <div className="flex gap-4 justify-center">
-            <Link
-                href="/login"
+            <button
+                onClick={handleLogin}
                 className="flex items-center gap-2 px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
                 Get Started
                 <ArrowRight className="w-5 h-5" />
-            </Link>
-            <Link
-                href="/login"
+            </button>
+            <button
+                onClick={handleLogin}
                 className="px-8 py-3 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 text-gray-900 dark:text-white rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-zinc-700 transition-all"
             >
                 Login
-            </Link>
+            </button>
         </div>
     );
 }

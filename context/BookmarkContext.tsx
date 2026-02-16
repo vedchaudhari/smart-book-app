@@ -35,15 +35,12 @@ export function BookmarkProvider({ children }: { children: React.ReactNode }) {
                         event: "*",
                         schema: "public",
                         table: "bookmarks",
-                        // Removed filter to allow DELETE events (which don't include user_id)
-                        // and to support real-time updates for all users.
                     },
                     (payload: any) => {
                         console.log('Realtime payload:', payload);
                         if (payload.eventType === "INSERT") {
                             setBookmarks((prev) => {
                                 const newBookmark = payload.new as Bookmark;
-                                // Use String coercion to catch duplicates even if types mismatch (number vs string)
                                 if (prev.some(b => String(b.id) === String(newBookmark.id))) {
                                     return prev;
                                 }
@@ -52,12 +49,6 @@ export function BookmarkProvider({ children }: { children: React.ReactNode }) {
                         } else if (payload.eventType === "DELETE") {
                             setBookmarks((prev) =>
                                 prev.filter((bookmark) => String(bookmark.id) !== String(payload.old.id))
-                            );
-                        } else if (payload.eventType === "UPDATE") {
-                            setBookmarks((prev) =>
-                                prev.map((bookmark) =>
-                                    String(bookmark.id) === String(payload.new.id) ? (payload.new as Bookmark) : bookmark
-                                )
                             );
                         }
                     }
@@ -105,9 +96,6 @@ export function BookmarkProvider({ children }: { children: React.ReactNode }) {
             console.error("Error adding bookmark:", error);
             throw error;
         }
-
-        // We rely on the Realtime subscription (INSERT event) to update the UI
-        // This prevents duplicate entries caused by manual + realtime both firing.
     };
 
     const deleteBookmark = async (id: string) => {
@@ -116,7 +104,6 @@ export function BookmarkProvider({ children }: { children: React.ReactNode }) {
 
         if (error) {
             console.error("Error deleting bookmark:", error);
-            // Revert on error (optional, but good practice would be to re-fetch)
             fetchBookmarks();
             throw error;
         }

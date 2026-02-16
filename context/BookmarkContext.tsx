@@ -43,7 +43,8 @@ export function BookmarkProvider({ children }: { children: React.ReactNode }) {
                         if (payload.eventType === "INSERT") {
                             setBookmarks((prev) => {
                                 const newBookmark = payload.new as Bookmark;
-                                if (prev.some(b => b.id === newBookmark.id)) {
+                                // Use String coercion to catch duplicates even if types mismatch (number vs string)
+                                if (prev.some(b => String(b.id) === String(newBookmark.id))) {
                                     return prev;
                                 }
                                 return [newBookmark, ...prev];
@@ -55,7 +56,7 @@ export function BookmarkProvider({ children }: { children: React.ReactNode }) {
                         } else if (payload.eventType === "UPDATE") {
                             setBookmarks((prev) =>
                                 prev.map((bookmark) =>
-                                    bookmark.id === payload.new.id ? (payload.new as Bookmark) : bookmark
+                                    String(bookmark.id) === String(payload.new.id) ? (payload.new as Bookmark) : bookmark
                                 )
                             );
                         }
@@ -111,10 +112,13 @@ export function BookmarkProvider({ children }: { children: React.ReactNode }) {
     };
 
     const deleteBookmark = async (id: string) => {
+
         const { error } = await supabase.from("bookmarks").delete().eq("id", id);
 
         if (error) {
             console.error("Error deleting bookmark:", error);
+            // Revert on error (optional, but good practice would be to re-fetch)
+            fetchBookmarks();
             throw error;
         }
     };

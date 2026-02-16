@@ -35,7 +35,8 @@ export function BookmarkProvider({ children }: { children: React.ReactNode }) {
                         event: "*",
                         schema: "public",
                         table: "bookmarks",
-                        filter: `user_id=eq.${user.id}`,
+                        // Removed filter to allow DELETE events (which don't include user_id)
+                        // and to support real-time updates for all users.
                     },
                     (payload: any) => {
                         console.log('Realtime payload:', payload);

@@ -1,8 +1,5 @@
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabaseClient"; // Note: In a server component, we should ideally use createServerClient but for simple redirect check, client auth check on client side or strict server check is needed. 
-// However, since we don't have cookies setup for server-side auth easily without middleware, we might want to do a client-side redirect or just a simple landing page.
-// The prompt said "Landing page (redirect to login/dashboard)".
-// I'll make a simple landing page that redirects if logged in, otherwise shows a "Get Started" button.
+import { createClient } from "@/lib/supabaseClient"; 
 
 export default function Home() {
   return (

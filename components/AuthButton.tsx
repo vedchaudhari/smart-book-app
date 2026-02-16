@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import { LogOut, LogIn } from "lucide-react";
 import { useEffect, useState } from "react";
-import type { User } from "@supabase/supabase-js";
+import type { User, AuthChangeEvent, Session } from "@supabase/supabase-js";
 
 export default function AuthButton() {
     const router = useRouter();
@@ -20,7 +20,7 @@ export default function AuthButton() {
         };
         getUser();
 
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: AuthChangeEvent, session: Session | null) => {
             setUser(session?.user ?? null);
         });
 

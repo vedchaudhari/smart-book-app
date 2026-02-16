@@ -13,6 +13,7 @@ GitHub Repo: https://github.com/vedchaudhari/smart-bookmark-app
 
 ---
 
+
 # Assignment Requirements (Completed)
 
 The application satisfies all required functionality:
